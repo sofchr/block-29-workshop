@@ -1,3 +1,3 @@
 export default function SearchBar() {
-  return <p>I'm a search bar!</p>;
+  return <p>In another life, I'd be a search bar!</p>;
 }

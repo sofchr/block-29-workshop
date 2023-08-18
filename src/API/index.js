@@ -11,7 +11,7 @@ export default async function fetchAllPuppies() {
   }
 }
 
-//irl name this services, thunks, etc. - this is the clearinghouse for adjusting all the API calls
+//irl name this file services, thunks, etc. - this is the clearinghouse for adjusting all the API calls
 
 const fetchSinglePlayer = async (playerId) => {
   try {
@@ -32,3 +32,25 @@ const fetchSinglePlayer = async (playerId) => {
 // }
 
 export { fetchSinglePlayer };
+
+
+
+//IGNORE FOR NOW, attempt at add new player
+// async function addNewPlayer() {
+//   try {
+//     const response = await fetch(
+//       "https://fsa-puppy-bowl.herokuapp.com/api/2306-GHP-ET-WEB-FT-SF/players",
+//       {
+//         method: "POST",
+//         body: JSON.stringify({ newDogName, newDogBreed, newDogPhoto }),
+//       })
+//     // console.log(result.data.players);
+//     const result = await response.json
+//     return result
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// export { addNewPlayer };
+
