@@ -6,10 +6,11 @@ import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
 import Searchbar from "./components/SearchBar";
-// import NewPlayerForm from "./components/NewPlayerForm";
+import CreatePlayerForm from "./components/NewPlayerForm";
 
 function App() {
   const [players, setPlayers] = useState([]);
+  const [result, setResults] = useState([]);
 
   async function makePlayersUseful() {
     let puppyArray = await fetchAllPuppies();
@@ -36,6 +37,7 @@ function App() {
             path="/players/:playerId"
             element={<SinglePlayer players={players} />}
           />
+          <Route path="/newPlayerForm" element={<CreatePlayerForm />} />
         </Routes>
       </div>
     </>

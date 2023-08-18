@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import CreatePlayerForm from "./NewPlayerForm";
 
 export default function AllPlayers({ players }) {
   const navigate = useNavigate();

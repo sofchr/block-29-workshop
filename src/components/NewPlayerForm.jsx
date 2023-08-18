@@ -1,72 +1,60 @@
-export default function NewPlayerForm() {
-  return <p>I'm a form!</p>;
-}
-
-//IGNORE FOR NOW, failed attempt at form
-
-// import { addNewPlayer } from "../API/index";
-// import { useState } from "react";
-
-// export default function NewPlayerForm(props) {
-//   //   const { something, setSomething } = props;
-//   //
-//   const [newDogName, setNewDogName] = useState("");
-//   const [newDogBreed, setNewDogBreed] = useState("");
-//   const [newDogPhoto, setNewDogPhoto] = useState("");
-
-//   async function handleSubmit(event) {
-//     event.preventDefault();
-//     try {
-//       const response = await fetch(
-//         "https://fsa-puppy-bowl.herokuapp.com/api/2306-GHP-ET-WEB-FT-SF/players",
-//         {
-//           method: "POST",
-//           body: JSON.stringify({ name, breed, imageUrl }),
-//         }
-//       );
-//       const result = await response.json();
-
-//       if (result.success) {
-//         setNewDogName(newDogName);
-//         setNewDogBreed(newDogBreed);
-//         setNewDogPhoto(newDogPhoto);
-//       }
-//     } catch (error) {
-//       console.error(err);
-//     }
-//   }
-//   return (
-//     <>
-//       <h2>Add Player Below</h2>
-//       <form onSubmit={handleSubmit}>
-//         <label>
-//           Dog Name: {""}
-//           <input
-//             // type="text"
-//             value={name}
-//             onChange={(event) => setNewDogName(event.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           Dog Breed: {""}
-//           <input
-//             // type="text"
-//             value={breed}
-//             onChange={(event) => setNewDogBreed(event.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <label>
-//           New Dog Photo URL: {""}
-//           <input
-//             value={imageUrl}
-//             onChange={(event) => setNewDogPhoto(event.target.value)}
-//           />
-//         </label>
-//         <br />
-//         <button>Submit</button>
-//       </form>
-//     </>
-//   );
+// export default function NewPlayerForm() {
+//   return <p>I'm a form!</p>;
 // }
+
+import { useState } from "react";
+import { createPuppy } from "../API/index";
+
+export default function CreatePlayerForm({ players, setPlayers }) {
+  const [name, setName] = useState("");
+  const [breed, setBreed] = useState("");
+  const [image, setImage] = useState("");
+  const [error, setError] = useState(null);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const result = await createPuppy(name, breed, image);
+    if (result.success) {
+      console.log("New Player: ", result.data.newPlayer);
+
+      const newPlayers = [...players, result.data.newPlayer];
+      setPlayers(newPlayers);
+
+      setName("");
+      setBreed("");
+      setImage("");
+    } else {
+      setError(result.error.message);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="form-container">
+      {error && <p>{error}</p>}
+      <h2>New Player Form</h2>
+      <input
+        value={name}
+        type="text"
+        name="name"
+        placeholder="name"
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        value={breed}
+        type="text"
+        name="breed"
+        placeholder="breed"
+        onChange={(e) => setBreed(e.target.value)}
+      />
+      <input
+        value={image}
+        type="text"
+        name="image"
+        placeholder="Image Url"
+        onChange={(e) => setImage(e.target.value)}
+      />
+      <button>Submit</button>
+    </form>
+  );
+}
